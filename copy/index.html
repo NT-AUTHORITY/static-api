@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clipboard API</title>
+    <script>
+        function copyToClipboard() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const text = urlParams.get('text');
+            if (text) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert("文本已复制到剪贴板: " + text);
+                }).catch(err => {
+                    alert("复制失败: " + err);
+                });
+            } else {
+                alert("URL中未提供 'text' 参数");
+            }
+        }
+    </script>
+</head>
+<body onload="copyToClipboard()">
+    <h1>剪贴板复制工具</h1>
+    <p>请在 URL 中提供 'text' 参数，例如: <code>?text=123456</code></p>
+</body>
+</html>
