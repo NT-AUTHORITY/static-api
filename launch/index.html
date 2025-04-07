@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open URL</title>
+    <script>
+        function openURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const url = urlParams.get('url');
+            if (url) {
+                window.open(url, '_blank');
+            } else {
+                alert("URL 中未提供 'url' 参数");
+            }
+            history.back();
+        }
+    </script>
+</head>
+<body onload="openURL()">
+</body>
+</html>
