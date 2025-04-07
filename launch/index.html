@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Open URL</title>
+    <title>Launch URL in new window</title>
     <script>
-        function openURL() {
+        function launchURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const url = urlParams.get('url');
             if (url) {
-                window.open(url, '_blank');
+                openWin(url);
             } else {
-                alert("URL 中未提供 'url' 参数");
+                alert("URL parameter 'url' is missing.");
             }
             history.back();
         }
+        function openWin(url)
+			 {                  
+			  var name;                           //网页名称，可为空;
+			  var iWidth=500;                         //弹出窗口的宽度;
+			  var iHeight=570;                        //弹出窗口的高度;
+			  //window.screen.height获得屏幕的高，window.screen.width获得屏幕的宽
+			  var iTop = (window.screen.height-30-iHeight)/2;       //获得窗口的垂直位置;
+			  var iLeft = (window.screen.width-10-iWidth)/2;        //获得窗口的水平位置;
+			  window.open(url,name,'height='+iHeight+',innerHeight='+iHeight+',width='+iWidth+',innerWidth='+iWidth+',top='+iTop+',left='+iLeft+',toolbar=no,menubar=no,scrollbars=auto,resizable=no,location=no,status=no');
+			 }
     </script>
 </head>
-<body onload="openURL()">
+<body onload="launchURL()">
 </body>
 </html>
