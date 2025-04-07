@@ -6,12 +6,23 @@
         function copyToClipboard() {
             const urlParams = new URLSearchParams(window.location.search);
             const text = urlParams.get('text');
+            const closeType = urlParams.get('closeType');
             if (text) {
                 navigator.clipboard.writeText(text);
             } else {
                 alert("URL中未提供 'text' 参数");
             }
-            history.back();
+            
+            switch (closeType) {
+                case '1':
+                    window.close();
+                    break;
+                case '2':
+                    history.back();
+                    break;
+                default:
+                    break;
+            }
         }
     </script>
 </head>

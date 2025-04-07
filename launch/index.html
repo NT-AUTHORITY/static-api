@@ -6,13 +6,24 @@
         function launchURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const url = urlParams.get('url');
+            const closeType = urlParams.get('closeType');
             if (url) {
                 openWin(url);
             } else {
                 alert("URL parameter 'url' is missing.");
             }
-            history.back();
+            switch (closeType) {
+                case '1':
+                    window.close();
+                    break;
+                case '2':
+                    history.back();
+                    break;
+                default:
+                    break;
+            }
         }
+        
         function openWin(url)
 			 {                  
 			  var name;                           //网页名称，可为空;
