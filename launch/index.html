@@ -7,7 +7,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const url = urlParams.get('url');
             const closeType = urlParams.get('closeType');
-            if (url) {
+            if (url && closeType) {
                 openWin(url);
             } else {
                 alert("URL parameter 'url' is missing.");
@@ -20,6 +20,7 @@
                     history.back();
                     break;
                 default:
+                    alert("Invalid closeType parameter. Use '1' to close the window or '2' to go back.");
                     break;
             }
         }

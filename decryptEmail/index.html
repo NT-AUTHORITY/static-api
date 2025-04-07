@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decrypt Email</title>
+    <script>
+        function decryptAndOpenEmail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const base64Encoded = urlParams.get('base64');
+            const closeType = urlParams.get('closeType');
+            if (base64Encoded) {
+                try {
+                    // 解码 Base64 字符串
+                    const email = atob(base64Encoded);
+                    if (email) {
+                        // 打开 mailto:<email>
+                        window.location.href = `mailto:${email}`;
+                    } else {
+                        alert("解码后的电子邮件地址无效！");
+                    }
+                } catch (error) {
+                    console.error("解码失败: ", error);
+                    alert("解码失败，请确保提供有效的 Base64 字符串！");
+                }
+            } else {
+                alert("URL 中未提供 'base64' 参数");
+            }
+
+            switch (closeType) {
+                case '1':
+                    window.close();
+                    break;
+                case '2':
+                    history.back();
+                    break;
+                default:
+                    alert("Invalid closeType parameter. Use '1' to close the window or '2' to go back.");
+                    break;
+            }
+
+        }
+    </script>
+</head>
+<body onload="decryptAndOpenEmail()">
+</body>
+</html>
