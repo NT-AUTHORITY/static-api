@@ -7,12 +7,22 @@
             const urlParams = new URLSearchParams(window.location.search);
             const text = urlParams.get('text');
             const closeType = urlParams.get('closeType');
+
             if (text) {
-                navigator.clipboard.writeText(text);
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                    alert("复制失败：" + err);
+                }
+                document.body.removeChild(textarea);
             } else {
                 alert("URL中未提供 'text' 参数");
             }
-            
+
             switch (closeType) {
                 case '1':
                     window.close();
