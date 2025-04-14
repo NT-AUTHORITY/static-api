@@ -7,13 +7,23 @@
             const urlParams = new URLSearchParams(window.location.search);
             const base64Encoded = urlParams.get('base64');
             const closeType = urlParams.get('closeType');
+            const debug = urlParams.get('debug');
+            const debugMode = debug === 'true' || debug === '1';
             if (base64Encoded) {
                 try {
                     // 解码 Base64 字符串
                     const email = atob(base64Encoded);
                     if (email) {
+                        if (debugMode) {
+                            alert("解码后的电子邮件地址: ", email);
+                        }
                         // 打开 mailto:<email>
-                        window.location.href = `mailto:${email}`;
+                        const url = `mailto:${email}`;
+                        // 使用 window.location.href 打开邮件客户端
+                        window.location.href = url;
+                        if (debugMode) {
+                            alert("打开邮件客户端: " + url);
+                        }
                     } else {
                         alert("解码后的电子邮件地址无效！");
                     }
