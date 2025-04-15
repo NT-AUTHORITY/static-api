@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>redirectToBingWallpaper</title>
+    <script>
+        async function redirectToBingWallpaper() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const debug = urlParams.get('debug');
+            const market = urlParams.get('market') || 'zh-CN';
+            const debugMode = debug === 'true' || debug === '1';
+            const wallpaperURL = urlParams.get('wallpaperURL') || 'https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=' + market;
+            if (debugMode) {
+                alert("Debug Mode: " + debugMode + "\nMarket: " + market + "\nWallpaper URL: " + wallpaperURL);
+            }
+            let response = await fetch(wallpaperURL);
+            if (response.status !== 200) {
+                alert("Error getting URL. HTTP code:" + response.status);
+                return;
+            }
+            if (debugMode) {
+                alert("Response status: " + response.status);
+            }
+            let data = await response.json();
+            let imageUrl = "https://www.bing.com" + data.images[0].url;
+            if (debugMode) {
+                alert("Image URL: " + imageUrl);
+            }
+            window.location.href = imageUrl;
+        }
+        window.onload = redirectToBingWallpaper;
+    </script>
+</head>
+<body>
+</body>
+</html>
